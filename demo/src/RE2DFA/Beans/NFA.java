@@ -1,30 +1,18 @@
-package DFA_minimisation;
+package RE2DFA.Beans;
 
 import java.util.List;
 
-public class DFA {
+public class NFA {
 
     private List<Integer> K;    // 状态集
 
     private char[] letters;     // 字母表
 
-    private int[][] f;       // 转换函数
+    private String[][] f;       // 转换函数
 
-    private int S;              // 唯一初态
+    private List<Integer> S;    // 初态集
 
     private List<Integer> Z;    // 终态集
-
-    public DFA(List<Integer> k, char[] letters, int[][] f, int s, List<Integer> z) {
-        K = k;
-        this.letters = letters;
-        this.f = f;
-        S = s;
-        Z = z;
-    }
-    public DFA(){
-
-    }
-
 
     public List<Integer> getK() {
         return K;
@@ -42,19 +30,19 @@ public class DFA {
         this.letters = letters;
     }
 
-    public int[][] getF() {
+    public String[][] getF() {
         return f;
     }
 
-    public void setF(int[][] f) {
+    public void setF(String[][] f) {
         this.f = f;
     }
 
-    public int getS() {
+    public List<Integer> getS() {
         return S;
     }
 
-    public void setS(int s) {
+    public void setS(List<Integer> s) {
         S = s;
     }
 
@@ -65,4 +53,6 @@ public class DFA {
     public void setZ(List<Integer> z) {
         Z = z;
     }
+
+
 }

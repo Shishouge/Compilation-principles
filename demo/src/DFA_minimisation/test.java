@@ -3,6 +3,7 @@ package DFA_minimisation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import RE2DFA.Beans.DFA;
 
 public class test {
     public static void main(String[] args) {

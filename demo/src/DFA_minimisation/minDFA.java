@@ -1,5 +1,6 @@
 package DFA_minimisation;
 
+import RE2DFA.Beans.DFA;
 import java.util.*;
 
 //BUG:状态表示用字母还是数字（string or int）
