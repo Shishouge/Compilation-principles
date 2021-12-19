@@ -77,6 +77,11 @@ public class DFA {
     public void transF(){
         f = new int[K.size()][letters.length];
         for(int i = 0; i < K.size(); i++) {
+            for(int j = 0; j < letters.length; j++ ) {
+                f[i][j]=-1;
+            }
+        }
+        for(int i = 0; i < K.size(); i++) {
             for(int j = 0; j < K.size(); j++ ) {
                 char[] trans = fv[i][j].toCharArray();
                 for (char c : trans) {

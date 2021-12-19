@@ -39,6 +39,17 @@ public class Test {
         System.out.print("DFA唯一初态：");          DisplayUtils.displayS(dfa);
         System.out.print("DFA终态集：");            DisplayUtils.displayZ(dfa);
 
+        int[][] nf=dfa.getF();
+        System.out.println("未化简的dfa状态转移函数");
+
+        for(int i=0;i<nf.length;i++)
+        {
+            for(int j=0;j<nf[0].length;j++)
+            {
+                System.out.print(nf[i][j]+" ");
+            }
+            System.out.println();
+        }
 
         minDFA mDFA = new minDFA();
         //设置字母对应的索引
@@ -46,14 +57,21 @@ public class Test {
         //最小化DFA
         DFA nDFA=mDFA.minDFA(dfa);
         generateDiagram g=new generateDiagram();
+        System.out.println("化简后的DFA的状态转移图矩阵：");
         g.generateDiagram(nDFA);
-
+        System.out.println("请输入要识别的代码：");
         Scanner input=new Scanner(System.in);
         String str=input.nextLine();
-        String[] type_1=new String[1];
+        String[] type_1=new String[3];
         type_1[0]="VAR";
+        type_1[1]=",";
+        type_1[2]=";";
         String[] code=str.split(" ");
         generateCode t=new generateCode();
+        for(int i=0;i< code.length;i++)
+        {
+            System.out.println(code[i]+" ");
+        }
         t.generate_code("V",code,type_1,nDFA);
 
 //        new minDFA().minDFA(dfa);

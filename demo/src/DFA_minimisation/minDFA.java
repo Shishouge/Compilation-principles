@@ -41,7 +41,7 @@ public class minDFA {
         HashMap<Integer,Group> new_old=new HashMap<Integer,Group>();
         HashMap<Group,Integer> old_new=new HashMap<Group,Integer>();
         for(Group group : finalGroupSet){
-                System.out.print(group.groupID);
+                System.out.print("最终状态ID对应状态集："+group.groupID);
             System.out.print(group.stateSet);
             System.out.println();
         }
@@ -62,13 +62,19 @@ public class minDFA {
             index_newstate.put(iterator,group.groupID);
             iterator++;
         }
-        System.out.println("1"+ID_group.get(1));
 
         //构建新字母表，不变
         char[] newLetters= dfa.getLetters();
 
         //构建新转移函数
         int[][] newF=new int[finalGroupSet.size()][newLetters.length];
+        for(int m=0;m<finalGroupSet.size();m++)
+        {
+            for(int n=0;n<newLetters.length;n++)
+            {
+                newF[m][n]=-1;
+            }
+        }
         for(int m=0;m< finalGroupSet.size();m++)
         {
             for(int n=0;n<newLetters.length;n++)
@@ -76,7 +82,7 @@ public class minDFA {
                 //m索引对应的ID（新状态）对应的旧状态集
 //                List<Integer> ls=new ArrayList<Integer>(ID_group.get(index_newstate.get(m)));
                 List<Integer> ls = new ArrayList<> ();
-                System.out.println("ssg"+ID_group.get(index_newstate.get(m)));
+//                System.out.println("ssg"+ID_group.get(index_newstate.get(m)));
                 for(Integer inte:ID_group.get(index_newstate.get(m)))
                 {
                     ls.add(inte);
@@ -92,7 +98,7 @@ public class minDFA {
                         for(int o=0;o< finalGroupSet.size();o++)
                         {
                             //如果o索引对应的ID对应的旧状态集包含要得到的状态
-                            System.out.println("index"+index_newstate.get(2));
+//                            System.out.println("index"+index_newstate.get(2));
                             if(ID_group.get(index_newstate.get(o)).contains(toState))
                             {
                                 //新的转移函数内容应该是o索引对应的ID
@@ -104,6 +110,16 @@ public class minDFA {
                     }
                 }
             }
+        }
+        //输出状态转移函数
+        System.out.println("化简后的状态转移函数：");
+        for(int o=0;o< newF.length;o++)
+        {
+            for(int u=0;u<newF[0].length;u++)
+            {
+                System.out.print(newF[o][u]+" ");
+            }
+            System.out.println();
         }
 
         //构建初始状态
@@ -118,6 +134,7 @@ public class minDFA {
                 break;
             }
         }
+        System.out.println("化简后的初始状态："+newstart);
 
         //构建终态集
         List<Integer> oldend=dfa.getZ();
@@ -132,6 +149,7 @@ public class minDFA {
                 }
             }
         }
+        System.out.println("化简后的终态集："+newend);
 
         DFA newdfa=new DFA(newK,newLetters,newF,newstart,newend);
         return newdfa;

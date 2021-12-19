@@ -18,19 +18,17 @@ public class test {
         K.add(0);
         K.add(1);
         K.add(2);
-        K.add(3);
-        K.add(4);
-        K.add(5);
-        K.add(6);
+//        K.add(3);
+//        K.add(4);
+//        K.add(5);
+//        K.add(6);
         char l[]=new char[2];
-        l[0]='a';
-        l[1]='b';
-        int f[][]=new int[][]{{1,2},{3,2},{1,5},{3,4},{6,5},{6,5},{3,4}};
+        l[0]='d';
+        l[1]='l';
+        int f[][]=new int[][]{{1,-1},{2,2},{2,2}};
         List<Integer> z=new ArrayList<>();
-        z.add(3);
-        z.add(4);
-        z.add(5);
-        z.add(6);
+        z.add(1);
+        z.add(2);
         DFA dfa=new DFA(K,l,f,0,z);
         minDFA mDFA= new minDFA();
         //设置字母对应的索引

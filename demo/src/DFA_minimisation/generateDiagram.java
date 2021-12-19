@@ -59,7 +59,7 @@ public class generateDiagram {
             state_index.put(i,iterator);
             iterator++;
         }
-        System.out.println("index:"+index_state);
+//        System.out.println("index:"+index_state);
 
         int[][] diagram=new int[states.size()][states.size()];
         for(int i=0;i<diagram.length;i++)

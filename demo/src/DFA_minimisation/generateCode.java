@@ -50,19 +50,20 @@ public class generateCode {
 //        generateDiagram g=new generateDiagram();
 //        g.generateDiagram(dfa);
 
-        System.out.println(dfa.getF());
+        //System.out.println(dfa.getF());
         int w[][]=dfa.getF();
-        for(int i=0;i<4;i++)
-        {
-            for(int j=0;j<2;j++)
-            {
-                System.out.println(w[i][j]);
-            }
-        }
-        System.out.println("state"+dfa.getK());        //dui
-        System.out.println(dfa.getLetters());  //dui
-        System.out.println(dfa.getS());        //dui
-        System.out.println(dfa.getZ());        //dui
+//        for(int i=0;i<w.length;i++)
+//        {
+//            for(int j=0;j<w[0].length;j++)
+//            {
+//                System.out.print(w[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println("state"+dfa.getK());        //dui
+//        System.out.println("letters"+dfa.getLetters());  //dui
+//        System.out.println("start:"+dfa.getS());        //dui
+//        System.out.println("end:"+dfa.getZ());        //dui
 
 //        String code[]=new String[2];
 //        code[0]="VAR";
@@ -94,10 +95,12 @@ public class generateCode {
             newstate_index.put(i,k);
             k++;
         }
-        System.out.println("index-state"+index_newstate);
+//        System.out.println("index-state"+index_newstate);
         for(num=0;num<code.length;num++)
         {
+            curState=dfa.getS();
             flag=false;
+            iterator=0;
             for(int j=0;j< type.length;j++)
             {
                 if(code[num].equals(type[j]))
@@ -114,6 +117,11 @@ public class generateCode {
                     if(t.isContained(letters,code[num].charAt(iterator)))
                     {
                         curState=newF[newstate_index.get(curState)][mapLetter.get(code[num].charAt(iterator))];
+                        if(curState==-1)
+                        {
+                            System.out.println("error");
+                            return;
+                        }
                         iterator++;
                     }
                     else
