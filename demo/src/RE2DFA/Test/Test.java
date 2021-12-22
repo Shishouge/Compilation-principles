@@ -62,17 +62,18 @@ public class Test {
         System.out.println("请输入要识别的代码：");
         Scanner input=new Scanner(System.in);
         String str=input.nextLine();
-        String[] type_1=new String[3];
-        type_1[0]="VAR";
+        String[] type_1=new String[2];
+        type_1[0]=";";
         type_1[1]=",";
-        type_1[2]=";";
+        String[] type_2=new String[1];
+        type_2[0]="VAR";
         String[] code=str.split(" ");
         generateCode t=new generateCode();
         for(int i=0;i< code.length;i++)
         {
             System.out.println(code[i]+" ");
         }
-        t.generate_code("V",code,type_1,nDFA);
+        t.generate_code("V",code,type_2,type_1,nDFA);
 
 //        new minDFA().minDFA(dfa);
     }

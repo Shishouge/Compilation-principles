@@ -39,7 +39,7 @@ public class test {
         generateDiagram g=new generateDiagram();
         g.generateDiagram(nDFA);
         //输入代码测试，输出二元式
-        t.generate_code("V",code,type_1,nDFA);
+//        t.generate_code("V",code,type_2,type_1,nDFA);
     }
 
 
