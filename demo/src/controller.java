@@ -3,6 +3,7 @@ import DFA_minimisation.generateDiagram;
 import DFA_minimisation.minDFA;
 import RE2DFA.Beans.DFA;
 import RE2DFA.Beans.NFA;
+import RE2DFA.Beans.RegexExpression;
 import RE2DFA.Service.NFA2DFA;
 import RE2DFA.Service.RE2NFA;
 
@@ -96,6 +97,7 @@ public class controller {
 
         for(int i=0;i<n;i++)
         {
+            RegexExpression re = new RegexExpression(res[i]);
             nfas[i] = new RE2NFA().get(re.getRe());
             dfas[i] = new NFA2DFA().definite(nfas[i]);
             dfas[i].transF();

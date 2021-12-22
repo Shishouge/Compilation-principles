@@ -16,11 +16,16 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        RegexExpression re = new RegexExpression();
 
-        System.out.print("请输入正规式：");
-        EnterUtils.enterRE(re);
-        System.out.println(re.getRe());
+
+
+//        // 控制台输入正规式
+//        RegexExpression re = new RegexExpression();
+//        System.out.print("请输入正规式：");
+//        EnterUtils.enterRE(re);
+//        System.out.println(re.getRe());
+
+        RegexExpression re = new RegexExpression("ABC*D");
 
         NFA nfa = new RE2NFA().get(re.getRe());
 
