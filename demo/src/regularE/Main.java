@@ -15,5 +15,8 @@ public class Main {
         String[] Boundary = (String[]) session.Boundary.toArray(new String[0]); //算符
         String[] res = (String[]) session.res.toArray(new String[0]); //正规式
         String[] token_ids = (String[]) session.tokenids.toArray(new String[0]); //正规式token
+        for(String str:Key){
+            System.out.println(str);
+        }
     }
 }

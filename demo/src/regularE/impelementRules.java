@@ -54,39 +54,26 @@ public class impelementRules extends Rule {
         int i, j = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = "";
-        n=0;
-        while(!(line = br.readLine().trim()).equals("#")){
+        n = 0;
+        while (!(line = br.readLine().trim()).equals("#")) {
 //            String in = br.readLine().trim();
             Rule add = new Rule();
             add.str = line;
             rules.add(add);
             n++;
         }
-//        for (i = 0; ; i++) {
-//            //输入正规文法，'#'停止
-//            Scanner input = new Scanner(System.in);
-//            String in = input.next();
-////            System.out.println(in);
-//            if (in.equals("#")) {
-//                break;
-//            }
-//            //create Rule addition and dump it to List rules
-//            Rule add = new Rule();
-//            add.str = in;
-//            rules.add(add);
-//        }
-//        n = i;
         for (Rule rule : rules) {
             rule.left = rule.str.charAt(0);
 
             rule.right = rule.str.substring(3);
-            if (mpToLow.containsKey(rule.right)) {
-                rule.right = mpToLow.get(rule.right);
-            }
-//            if(rule.right.contains(mpToLow.equals()))
-//            {
-//
+//            if (mpToLow.containsKey(rule.right)) {
+//                rule.right = mpToLow.get(rule.right);
 //            }
+            for (int index = 1; index <= 9; ++index) {
+                if (rule.right.contains(sss[index - 1])) {
+                    rule.right = rule.right.replace(sss[index - 1], ss[index - 1]);
+                }
+            }
 //            rule.left = rule.str.charAt(0);
 //            System.out.println("-----------------");
 //            System.out.println(rule.left);
@@ -293,7 +280,7 @@ public class impelementRules extends Rule {
             }
         }
         for (Character str : token_ids) {
-            String xx= Character.toString(str);
+            String xx = Character.toString(str);
             tokenids.add(xx);
         }
     }
