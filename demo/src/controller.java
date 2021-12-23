@@ -6,7 +6,9 @@ import RE2DFA.Beans.NFA;
 import RE2DFA.Beans.RegexExpression;
 import RE2DFA.Service.NFA2DFA;
 import RE2DFA.Service.RE2NFA;
+import regularE.impelementRules;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,17 +73,27 @@ public class controller {
         return c;
     }
 
-    public static void main(String[] args) {
-        //关键字
-        String Key[]=new String[13];
-        //算符
-        String Boundary[]=new String[10];
-        //DFA自动机的数量
-        int n=1;
-        //正规式
-        String[] res=new String[n];
-        //正规式对应的token-id
-        String[] token_ids=new String[n];
+    public static void main(String[] args) throws IOException {
+//        //关键字
+//        String Key[]=new String[13];
+//        //算符
+//        String Boundary[]=new String[10];
+//        //DFA自动机的数量
+//        int n=1;
+//        //正规式
+//        String[] res=new String[n];
+//        //正规式对应的token-id
+//        String[] token_ids=new String[n];
+
+        impelementRules session = new impelementRules();
+        session.Init();
+        session.mix1();
+        int n=session.resNum;
+        String[] Key = (String[]) session.Key.toArray(new String[0]); //关键字
+        String[] Boundary = (String[]) session.Boundary.toArray(new String[0]); //算符
+        String[] res = (String[]) session.res.toArray(new String[0]); //正规式
+//        System.out.println(res[0]);
+        String[] token_ids = (String[]) session.tokenids.toArray(new String[0]); //正规式token
 
 
         //正规式对应的nfa,dfa,化简后的dfa
@@ -89,7 +101,7 @@ public class controller {
         DFA[] dfas=new DFA[n];
         DFA[] ndfas=new DFA[n];
 
-        System.out.println("请输入文法：");//这里没有做输入
+//        System.out.println("请输入文法：");//这里没有做输入
         System.out.println("请输入要识别的代码");
         Scanner input=new Scanner(System.in);
         String str=input.nextLine();
@@ -98,6 +110,7 @@ public class controller {
         for(int i=0;i<n;i++)
         {
             RegexExpression re = new RegexExpression(res[i]);
+            List<String> t = re.getRe();
             nfas[i] = new RE2NFA().get(re.getRe());
             dfas[i] = new NFA2DFA().definite(nfas[i]);
             dfas[i].transF();
@@ -113,7 +126,7 @@ public class controller {
         generateCode t=new generateCode();
         controller con=new controller();
         //分割字符
-        List<String> c=con.divide(code,Key);
+        List<String> c=con.divide(code,Boundary);
         //输出
         for(int i=0;i<c.size();i++)
         {

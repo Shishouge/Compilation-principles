@@ -11,7 +11,7 @@ public class RE2NFA {
     public NFA get(List<String> re){
         NFA nfa = new NFA();
         Graph nfaGraph = getNFAGraph(re);
-        System.out.println(nfaGraph);
+//        System.out.println(nfaGraph);
         List<Edge> edges = nfaGraph.getEdges();
         Node start = nfaGraph.getStart();
         Node end = nfaGraph.getEnd();
@@ -28,14 +28,12 @@ public class RE2NFA {
             stateSet.add(edge.getBegin().getId());
             stateSet.add(edge.getEnd().getId());
             if(edge.getLabel() != "epsilon"){
-                System.out.println(edge.getLabel().charAt(0));
                 letterSet.add(edge.getLabel().charAt(0));
             }
         }
         List<Integer> K = new ArrayList<>(stateSet);
         int len = K.size();
         String temp = letterSet.toString().replaceAll("[^a-zA-Z0-9]","");
-        System.out.println(temp);
         nfa.setK(K);
         nfa.setLetters(temp.toCharArray());
         String[][] f = new String[len][len];

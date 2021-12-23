@@ -79,15 +79,15 @@ public class NFA2DFA {
                     queue.add(nextI);
                     k++;
                 }
-                System.out.print(I);
-                System.out.println(nextI);
+//                System.out.print(I);
+//                System.out.println(nextI);
                 // 将DFA状态I到iNext的转移加入DFA状态转移函数
                 listF.add(new String[]{String.valueOf(map.get(I)), String.valueOf(letter), String.valueOf(map.get(nextI))});
                 sb.append(map.get(I)).append(letter).append(map.get(nextI)).append('\n');
             }
         }
-        System.out.println("重命名后：");
-        System.out.println(sb.toString());
+//        System.out.println("重命名后：");
+//        System.out.println(sb.toString());
 
         // 下面是为了构造出DFA对象
         int len = K.size();

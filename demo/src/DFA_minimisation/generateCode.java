@@ -15,11 +15,12 @@ import java.util.List;
 
 public class generateCode {
     public static void main(String[] args) throws IOException {
-        String token_id="V";String code="VAR";
-        String[] type2=new String[1];
-        type2[0]=",";
+        String token_id="V";String code="ld";
+        String[] type2=new String[2];
+        type2[0]="(";
+        type2[1]=")";
         String[] type1=new String[1];
-        type1[0]="VAR";
+        type1[0]="IF";
         RegexExpression re = new RegexExpression();
 
         System.out.print("请输入正规式：");
