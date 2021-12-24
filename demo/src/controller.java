@@ -38,6 +38,10 @@ public class controller {
                     if((code[i].charAt(m)>='a'&&code[i].charAt(m)<='z')||(code[i].charAt(m)>='A'&&code[i].charAt(m)<='Z')||(code[i].charAt(m)>='0'&&code[i].charAt(m)<='9')||code[i].charAt(m)=='_')
                     {
                         last++;
+                        if(m==code[i].length()-1)
+                        {
+                            c.add(code[i].substring(first,last));
+                        }
                     }
                     else
                     {
@@ -47,7 +51,9 @@ public class controller {
                         if((m+1<code[i].length())&&((code[i].charAt(m)==':'&&code[i].charAt(m+1)=='=')||(code[i].charAt(m)=='>'&&code[i].charAt(m+1)=='=')||(code[i].charAt(m)=='<'&&code[i].charAt(m+1)=='=')||(code[i].charAt(m)=='<'&&code[i].charAt(m+1)=='>')))
                         {
                             c.add(code[i].substring(m,m+2));
-                            last++;
+                            m++;
+                            first++;
+                            last+=2;
                         }
                         else
                         {
@@ -127,13 +133,17 @@ public class controller {
         controller con=new controller();
         //分割字符
         List<String> c=con.divide(code,Boundary);
+        for(int i=0;i<c.size();i++)
+        {
+            System.out.println(c.get(i));
+        }
         //输出
         for(int i=0;i<c.size();i++)
         {
             for(int j=0;j<n;j++)
             {
                 String info=t.gCode(token_ids[j],c.get(i),Key,Boundary,ndfas[j]);
-                if(info=="error")
+                if(info=="error"&&j!=n-1)
                 {
                     continue;
                 }

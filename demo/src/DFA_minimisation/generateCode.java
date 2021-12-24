@@ -15,7 +15,7 @@ import java.util.List;
 
 public class generateCode {
     public static void main(String[] args) throws IOException {
-        String token_id="V";String code="ld";
+        String token_id="V";String code="dl";
         String[] type2=new String[2];
         type2[0]="(";
         type2[1]=")";
