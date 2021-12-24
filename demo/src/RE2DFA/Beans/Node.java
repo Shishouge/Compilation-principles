@@ -10,6 +10,10 @@ public class Node {
         this.id=ID++;
     }
 
+    public static void init(){
+        ID = 0;
+    }
+
     public int getId() {
         return id;
     }

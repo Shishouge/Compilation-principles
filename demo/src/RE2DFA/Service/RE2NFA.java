@@ -10,12 +10,12 @@ import java.util.*;
 public class RE2NFA {
     public NFA get(List<String> re){
         NFA nfa = new NFA();
+        new Node().init();
         Graph nfaGraph = getNFAGraph(re);
 //        System.out.println(nfaGraph);
         List<Edge> edges = nfaGraph.getEdges();
         Node start = nfaGraph.getStart();
         Node end = nfaGraph.getEnd();
-
         List<Integer> S = new ArrayList<>();
         S.add(start.getId());
         List<Integer> Z = new ArrayList<>();
@@ -36,6 +36,7 @@ public class RE2NFA {
         String temp = letterSet.toString().replaceAll("[^a-zA-Z0-9]","");
         nfa.setK(K);
         nfa.setLetters(temp.toCharArray());
+//        System.out.println("length:"+len);
         String[][] f = new String[len][len];
         for(String[] tmp : f){
             Arrays.fill(tmp, "");
@@ -43,11 +44,14 @@ public class RE2NFA {
         for(int i = 0; i < f.length; i++){
             f[i][i] = "ε";
         }
+        int x = 0;
         for (Edge edge : edges){
+            x++;
             String letter = edge.getLabel();
             if(letter == "epsilon"){
                 letter = "ε";
             }
+//            System.out.println(x+":"+edge.getBegin().getId()+"-----"+edge.getEnd().getId());
             f[edge.getBegin().getId()][edge.getEnd().getId()] += letter;
         }
         nfa.setF(f);
