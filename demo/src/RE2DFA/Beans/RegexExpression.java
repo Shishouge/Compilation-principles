@@ -58,7 +58,6 @@ public class RegexExpression {
                 list.add("^");
             }
             list.add(s);
-            System.out.println(s);
         }
         re = infix2postfix(list);
         if(debug){

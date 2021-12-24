@@ -1,0 +1,11 @@
+K->PROGRAM|BEGIN|END|CONST|VAR|WHILE|DO|IF|THEN|ELSE|GOTO
+V->l(l|d)*
+D->,|;|+|-|*|/|:=|=|<>|>|>=|<|<=|(|)
+N->d*
+
+
+VAR a1=2;VAR a2=3; IF(a1=2) VAR a3=1;
+
+VAR a=10; VAR b=20; IF(a<=b) a=a+b; THEN VAR c=1;
+
+WHILE(a<=b) DO BEGIN IF(a=1) b:=3 ELSE b:=4
