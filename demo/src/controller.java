@@ -30,7 +30,7 @@ public class controller {
                     break;
                 }
             }
-            System.out.println("code"+i+":"+isContainPunc);
+            //System.out.println("code"+i+":"+isContainPunc);
             if(isContainPunc)
             {
                 for(int m=0;m<code[i].length();m++)
@@ -115,6 +115,8 @@ public class controller {
 
         for(int i=0;i<n;i++)
         {
+            int it=i+1;
+            System.out.println("第"+it+"个：");
             RegexExpression re = new RegexExpression(res[i]);
             List<String> t = re.getRe();
             nfas[i] = new RE2NFA().get(re.getRe());
@@ -128,6 +130,7 @@ public class controller {
             generateDiagram g=new generateDiagram();
             System.out.println("化简后的DFA的状态转移图矩阵：");
             g.generateDiagram(ndfas[i]);
+            System.out.println();
         }
         generateCode t=new generateCode();
         controller con=new controller();
@@ -135,8 +138,15 @@ public class controller {
         List<String> c=con.divide(code,Boundary);
         for(int i=0;i<c.size();i++)
         {
-            System.out.println(c.get(i));
+            if(c.get(i).length()==0){
+                c.remove(i);
+                i--;
+            }
         }
+//        for(int i=0;i<c.size();i++)
+//        {
+//            System.out.println(c.get(i));
+//        }
         //输出
         for(int i=0;i<c.size();i++)
         {
