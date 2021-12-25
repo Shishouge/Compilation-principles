@@ -21,9 +21,9 @@ public class impelementRules extends Rule {
     String[] s1 = {"+", "-", "*", "/", "=", ">", "<", "(", ")", ";", ","};
     String[] s2 = {":=", "<>", ">=", "<="};
     String[] ss = {"program", "begin", "end", "const"
-            , "var", "while", "do", "if", "then"};
+            , "var", "while", "do", "if", "then","else","goto"};
     String[] sss = {"PROGRAM", "BEGIN", "END", "CONST",
-            "VAR", "WHILE", "DO", "IF", "THEN"};
+            "VAR", "WHILE", "DO", "IF", "THEN","ELSE","GOTO"};
     List<Rule> rules = new ArrayList<>();
     //将关键字转换为小写形式
     Map<String, String> mpToLow = new HashMap<>();
@@ -35,21 +35,21 @@ public class impelementRules extends Rule {
     public ArrayList<String> tokenids = new ArrayList<>();
     public int resNum = 0;
 
-    void initMap() {
-        mpToLow.put("PROGRAM", "program");
-        mpToLow.put("BEGIN", "begin");
-        mpToLow.put("END", "end");
-        mpToLow.put("CONST", "const");
-        mpToLow.put("VAR", "var");
-        mpToLow.put("WHILE", "while");
-        mpToLow.put("DO", "do");
-        mpToLow.put("IF", "if");
-        mpToLow.put("THEN", "then");
-    }
+//    void initMap() {
+//        mpToLow.put("PROGRAM", "program");
+//        mpToLow.put("BEGIN", "begin");
+//        mpToLow.put("END", "end");
+//        mpToLow.put("CONST", "const");
+//        mpToLow.put("VAR", "var");
+//        mpToLow.put("WHILE", "while");
+//        mpToLow.put("DO", "do");
+//        mpToLow.put("IF", "if");
+//        mpToLow.put("THEN", "then");
+//    }
 
     public void Init() throws IOException {
 //        System.out.println("Init");
-        initMap();//完成Map的初始化
+//        initMap();//完成Map的初始化
         System.out.println("输入正规文法：");
         int i, j = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -69,7 +69,7 @@ public class impelementRules extends Rule {
 //            if (mpToLow.containsKey(rule.right)) {
 //                rule.right = mpToLow.get(rule.right);
 //            }
-            for (int index = 1; index <= 9; ++index) {
+            for (int index = 1; index <= 11; ++index) {
                 if (rule.right.contains(sss[index - 1])) {
                     rule.right = rule.right.replace(sss[index - 1], ss[index - 1]);
                 }
@@ -80,7 +80,6 @@ public class impelementRules extends Rule {
 //            System.out.println(rule.right);
         }
     }
-
 
     @Override
     //正规文法到正规式的转换1
@@ -242,7 +241,7 @@ public class impelementRules extends Rule {
                 if (rules.get(i).right != "") {
                     //change
 
-                    for (int index = 1; index <= 9; ++index) {
+                    for (int index = 1; index <= 11; ++index) {
                         if (rules.get(i).right.contains(ss[index - 1])) {
                             rules.get(i).right = rules.get(i).right.replace(ss[index - 1], sss[index - 1]);
                             Key.add(sss[index - 1]);
