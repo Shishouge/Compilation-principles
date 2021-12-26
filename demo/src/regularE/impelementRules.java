@@ -66,24 +66,19 @@ public class impelementRules extends Rule {
             rule.left = rule.str.charAt(0);
 
             rule.right = rule.str.substring(3);
-//            if (mpToLow.containsKey(rule.right)) {
-//                rule.right = mpToLow.get(rule.right);
-//            }
+
             for (int index = 1; index <= 11; ++index) {
                 if (rule.right.contains(sss[index - 1])) {
                     rule.right = rule.right.replace(sss[index - 1], ss[index - 1]);
                 }
             }
-//            rule.left = rule.str.charAt(0);
-//            System.out.println("-----------------");
-//            System.out.println(rule.left);
-//            System.out.println(rule.right);
         }
     }
 
     @Override
     //正规文法到正规式的转换1
     public void mix1() {
+        //合并文法中形如S->aS S->bS为S->aS|bS;S->aB S->bB为S->aB|bB;S->a S->b为S->a|b ;即合并左部相同、右部相同的部分，以及右部单个字符
 //        System.out.println("mix1");
         int i, j;
         for (i = 0; i < n - 1; i++)
@@ -93,6 +88,7 @@ public class impelementRules extends Rule {
                             && rules.get(i).left != '\0') ||
                             (rules.get(i).left == rules.get(j).left && rules.get(i).right.length() == 1 && rules.get(j).right.length() == 1
                                     && rules.get(i).left != '\0')) {
+                        //并左部相同、右部相同的部分和单个字符
                         rules.get(i).right = rules.get(i).right.concat("|").concat(rules.get(j).right);
                         rules.get(j).left = '\0';
                         rules.get(j).right = "";
@@ -105,15 +101,18 @@ public class impelementRules extends Rule {
 
     @Override
     public void mix2() {
+        //合并Mix1中S->aS|bS为S->(a|b)S ;S->aB|bB为S->(a|b)B
 //        System.out.println("mix2");
         int i, j, k;
         for (i = 0; i < n; i++) {
             if (rules.get(i).right.length() > 2 && rules.get(i).right.charAt(1) >= 'A' && rules.get(i).right.charAt(1) <= 'Z') {
                 char[] tem = rules.get(i).right.toCharArray();
+                //使用中间数组，将需保留内容存入其中，最后再存入rules中
                 k = 0;
                 tem[k++] = '(';
                 String a = new String("(");
                 for (j = 0; j < rules.get(i).right.length(); j += 3) {
+                    //存储需保留的值
                     tem[k] = rules.get(i).right.charAt(j);
                     tem[k + 1] = '|';
                     k = k + 2;
@@ -130,16 +129,19 @@ public class impelementRules extends Rule {
 
     @Override
     public void mix3() {
+        //合并类似S->a|b S->(a|b)S 为S->(a|b)*(a|b) ,采用右递归
 //        System.out.println("mix3");
         int i, j, temp1;
         for (i = 0; i < n; i++) {
             temp1 = 0;
             for (j = 0; j < rules.get(i).right.length(); j++) {
                 if (Character.isUpperCase(rules.get(i).right.charAt(j))) {
+                    //先寻找S->a|b,即右边无非终结符
                     temp1 = 1;
                 }
             }
             if (temp1 == 0) {
+                //然后再寻找与其左部有相同非终结符且右部也相同非终结符的文法
                 for (j = 0; j < n; j++) {
                     int length = rules.get(j).right.length();
                     if (length > 0) {
@@ -147,6 +149,7 @@ public class impelementRules extends Rule {
                                 && rules.get(j).right.charAt(length - 1) == rules.get(i).left && rules.get(j).left != '\0') {
                             StringBuilder tj = new StringBuilder(rules.get(j).right);
                             StringBuilder ti = new StringBuilder(rules.get(i).right);
+                            //将两个文法进行合并
                             tj.setCharAt(length - 1, '\0');
                             if (ti.length() == 1 | ti.length() == 2) {
                                 tj.append("*");
@@ -171,6 +174,7 @@ public class impelementRules extends Rule {
 
     @Override
     public void mix4() {
+        //合并类型S->aA A->(b|a) 为S->a(b|a)
 //        System.out.println("mix4");
         int i, j, temp1, k;
         for (i = 0; i < n; i++) {
@@ -179,7 +183,7 @@ public class impelementRules extends Rule {
                 if (Character.isUpperCase(rules.get(i).right.charAt(j)))
                     temp1 = 1;
             }
-            if (temp1 == 0) { //然后在寻找右部与其左部有相同非终结符但左部不相同非终结符的文法
+            if (temp1 == 0) { //然后再寻找右部与其左部有相同非终结符但左部不相同非终结符的文法
                 for (j = 0; j < n; j++) {
                     int length = rules.get(j).right.length();
                     if (length > 0) {
@@ -234,7 +238,7 @@ public class impelementRules extends Rule {
                 }
             }
         }
-        if (temp1 != 0) //若含非终结符，调至Min1循环执行
+        if (temp1 != 0) //若含非终结符，调至Mix1循环执行
             mix1();
         else {
             for (i = 0; i < n; i++) { //输出正规式
