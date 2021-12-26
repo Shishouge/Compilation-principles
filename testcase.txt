@@ -1,4 +1,4 @@
-K->PROGRAM|BEGIN|END|CONST|VAR|WHILE|DO|IF|THEN|ELSE|GOTO
+K->PROGRAM|BEGIN|END|CONST|VAR|WHILE|DO|IF|THEN
 V->l(l|d)*
 D->,|;|+|-|*|/|:=|=|<>|>|>=|<|<=|(|)
 N->d*
@@ -10,4 +10,15 @@ VAR a=10; VAR b=20; IF(a<=b) a=a+b; THEN VAR c=1;
 
 WHILE(a<=b) DO BEGIN IF(a=1) b:=3 ELSE b:=4
 
+VAR a1=13;
+
+IF(A>==B)
+
+IF(A=B) DO B=B/A;ELSE CONST C=B;
+
+PROGRAM L1 BEGIN VAR 1a=B; END
+
+IF(A<>B)
+
 WHILE(a<=b) DO BEGIN IF(a=1) b:=3 ELSE b:=4 GOTO a
+

@@ -40,11 +40,11 @@ public class minDFA {
         int i=1;
         HashMap<Integer,Group> new_old=new HashMap<Integer,Group>();
         HashMap<Group,Integer> old_new=new HashMap<Group,Integer>();
-        for(Group group : finalGroupSet){
-                System.out.print("最终状态ID对应状态集："+group.groupID);
-            System.out.print(group.stateSet);
-            System.out.println();
-        }
+//        for(Group group : finalGroupSet){
+//                System.out.print("最终状态ID对应状态集："+group.groupID);
+//            System.out.print(group.stateSet);
+//            System.out.println();
+//        }
         //构建新状态集
         List<Integer> newK=new ArrayList<>();
         //通过新状态集ID得到状态集
@@ -62,7 +62,12 @@ public class minDFA {
             index_newstate.put(iterator,group.groupID);
             iterator++;
         }
-
+        System.out.print("化简后的DFA状态集: ");
+        for(int k=0;k< newK.size();k++)
+        {
+            System.out.print(newK.get(k)+" ");
+        }
+        System.out.println();
         //构建新字母表，不变
         char[] newLetters= dfa.getLetters();
 
@@ -149,7 +154,12 @@ public class minDFA {
                 }
             }
         }
-        System.out.println("化简后的终态集："+newend);
+        Set<Integer> set = new HashSet<>();
+        for(int k=0;k<newend.size();k++)
+        {
+            set.add(newend.get(k));
+        }
+        System.out.println("化简后的终态集："+set);
 
         DFA newdfa=new DFA(newK,newLetters,newF,newstart,newend);
         return newdfa;

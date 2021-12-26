@@ -29,10 +29,19 @@ public class controller {
                     break;
                 }
             }
-            System.out.println("code" + i + ":" + isContainPunc);
-            if (isContainPunc) {
-                for (int m = 0; m < code[i].length(); m++) {
-                    if ((code[i].charAt(m) >= 'a' && code[i].charAt(m) <= 'z') || (code[i].charAt(m) >= 'A' && code[i].charAt(m) <= 'Z') || (code[i].charAt(m) >= '0' && code[i].charAt(m) <= '9') || code[i].charAt(m) == '_') {
+            //System.out.println("code"+i+":"+isContainPunc);
+            if(isContainPunc)
+            {
+                for(int m=0;m<code[i].length();m++)
+                {
+                    if((code[i].charAt(m)>='a'&&code[i].charAt(m)<='z')||(code[i].charAt(m)>='A'&&code[i].charAt(m)<='Z')||(code[i].charAt(m)>='0'&&code[i].charAt(m)<='9')||code[i].charAt(m)=='_')
+                    {
+//=======
+//            System.out.println("code" + i + ":" + isContainPunc);
+//            if (isContainPunc) {
+//                for (int m = 0; m < code[i].length(); m++) {
+//                    if ((code[i].charAt(m) >= 'a' && code[i].charAt(m) <= 'z') || (code[i].charAt(m) >= 'A' && code[i].charAt(m) <= 'Z') || (code[i].charAt(m) >= '0' && code[i].charAt(m) <= '9') || code[i].charAt(m) == '_') {
+//>>>>>>> fb52ece8b5cc846f9dcffdbc4d5ccef934d36dd5
                         last++;
                         if (m == code[i].length() - 1) {
                             c.add(code[i].substring(first, last));
@@ -100,12 +109,19 @@ public class controller {
 //        System.out.println("请输入文法：");//这里没有做输入
         System.out.println("请输入要识别的代码");
 
+//<<<<<<< HEAD
+//        for(int i=0;i<n;i++)
+//        {
+//            int it=i+1;
+//            System.out.println("第"+it+"个：");
+//=======
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = "";
         String str = "";
         while (!(line = br.readLine().trim()).equals("#")) {
 //            String in = br.readLine().trim();
             str += line;
+            str+=" ";
         }
         System.out.println(str);
         String[] code = str.split(" ");
@@ -124,14 +140,25 @@ public class controller {
             generateDiagram g = new generateDiagram();
             System.out.println("化简后的DFA的状态转移图矩阵：");
             g.generateDiagram(ndfas[i]);
+            System.out.println();
         }
         generateCode t = new generateCode();
         controller con = new controller();
         //分割字符
-        List<String> c = con.divide(code, Boundary);
+        List<String> c=con.divide(code,Boundary);
+        for(int i=0;i<c.size();i++) {
+            if (c.get(i).length() == 0) {
+                c.remove(i);
+                i--;
+            }
+        }
         for (int i = 0; i < c.size(); i++) {
             System.out.println(c.get(i));
         }
+//        for(int i=0;i<c.size();i++)
+//        {
+//            System.out.println(c.get(i));
+//        }
         //输出
         for (int i = 0; i < c.size(); i++) {
             for (int j = 0; j < n; j++) {
