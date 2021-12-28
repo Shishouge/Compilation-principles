@@ -158,7 +158,6 @@ public class EnterUtils {
                 list.add("^");
             }
             list.add(s);
-            System.out.println(s);
         }
         System.out.println(list);
         re.setRe(infix2postfix(list));

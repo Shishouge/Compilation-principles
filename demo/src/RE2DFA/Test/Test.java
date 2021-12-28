@@ -19,14 +19,14 @@ public class Test {
 
 
 
-//        // 控制台输入正规式
-//        RegexExpression re = new RegexExpression();
-//        System.out.print("请输入正规式：");
-//        EnterUtils.enterRE(re);
-//        System.out.println(re.getRe());
-
-        String a = "(0|1|2|3|4|5|6|7|8|9)";
-        RegexExpression re = new RegexExpression(a);
+        // 控制台输入正规式
+        RegexExpression re = new RegexExpression();
+        System.out.print("请输入正规式：");
+        EnterUtils.enterRE(re);
+        System.out.println(re.getRe());
+//
+//        String a = "(0|1|2|3|4|5|6|7|8|9)";
+//        RegexExpression re = new RegexExpression(a);
 
         NFA nfa = new RE2NFA().get(re.getRe());
 
@@ -45,41 +45,41 @@ public class Test {
         System.out.print("DFA唯一初态：");          DisplayUtils.displayS(dfa);
         System.out.print("DFA终态集：");            DisplayUtils.displayZ(dfa);
 
-        int[][] nf=dfa.getF();
-        System.out.println("未化简的dfa状态转移函数");
-
-        for(int i=0;i<nf.length;i++)
-        {
-            for(int j=0;j<nf[0].length;j++)
-            {
-                System.out.print(nf[i][j]+" ");
-            }
-            System.out.println();
-        }
-
-        minDFA mDFA = new minDFA();
-        //设置字母对应的索引
-        mDFA.setup(dfa.getLetters());
-        //最小化DFA
-        DFA nDFA=mDFA.minDFA(dfa);
-        generateDiagram g=new generateDiagram();
-        System.out.println("化简后的DFA的状态转移图矩阵：");
-        g.generateDiagram(nDFA);
-        System.out.println("请输入要识别的代码：");
-        Scanner input=new Scanner(System.in);
-        String str=input.nextLine();
-        String[] type_1=new String[2];
-        type_1[0]=";";
-        type_1[1]=",";
-        String[] type_2=new String[1];
-        type_2[0]="VAR";
-        String[] code=str.split(" ");
-        generateCode t=new generateCode();
-        for(int i=0;i< code.length;i++)
-        {
-            System.out.println(code[i]+" ");
-        }
-        t.generate_code("V",code,type_2,type_1,nDFA);
+//        int[][] nf=dfa.getF();
+//        System.out.println("未化简的dfa状态转移函数");
+//
+//        for(int i=0;i<nf.length;i++)
+//        {
+//            for(int j=0;j<nf[0].length;j++)
+//            {
+//                System.out.print(nf[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
+//
+//        minDFA mDFA = new minDFA();
+//        //设置字母对应的索引
+//        mDFA.setup(dfa.getLetters());
+//        //最小化DFA
+//        DFA nDFA=mDFA.minDFA(dfa);
+//        generateDiagram g=new generateDiagram();
+//        System.out.println("化简后的DFA的状态转移图矩阵：");
+//        g.generateDiagram(nDFA);
+//        System.out.println("请输入要识别的代码：");
+//        Scanner input=new Scanner(System.in);
+//        String str=input.nextLine();
+//        String[] type_1=new String[2];
+//        type_1[0]=";";
+//        type_1[1]=",";
+//        String[] type_2=new String[1];
+//        type_2[0]="VAR";
+//        String[] code=str.split(" ");
+//        generateCode t=new generateCode();
+//        for(int i=0;i< code.length;i++)
+//        {
+//            System.out.println(code[i]+" ");
+//        }
+//        t.generate_code("V",code,type_2,type_1,nDFA);
 
 //        new minDFA().minDFA(dfa);
     }
