@@ -20,5 +20,18 @@ PROGRAM L1 BEGIN VAR 1a=B; END
 
 IF(A<>B)
 
-WHILE(a<=b) DO BEGIN IF(a=1) b:=3 ELSE b:=4 GOTO a
+WHILE(a<=b)
+DO BEGIN
+IF(a=1) b:=3
+ELSE b:=4
+GOTO a
 
+VAR a1=2;
+VAR a2=3;
+IF(a1=2)
+   VAR a3=1;
+
+IF(A=B)
+DO B=B/A;
+ELSE
+CONST 5C=B;
