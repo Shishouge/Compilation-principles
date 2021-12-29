@@ -6,6 +6,7 @@ import RE2DFA.Beans.NFA;
 import RE2DFA.Beans.RegexExpression;
 import RE2DFA.Service.NFA2DFA;
 import RE2DFA.Service.RE2NFA;
+import RE2DFA.Utils.DisplayUtils;
 import regularE.Rule;
 import regularE.impelementRules;
 
@@ -131,7 +132,21 @@ public class controller {
             RegexExpression re = new RegexExpression(res[i]);
             List<String> t = re.getRe();
             nfas[i] = new RE2NFA().get(re.getRe());
+            System.out.println("正规式转换为NFA：");
+            System.out.print("NFA状态集：");            DisplayUtils.displayK(nfas[i]);
+            System.out.print("NFA字母表：");            DisplayUtils.displayLetters(nfas[i]);
+            System.out.print("NFA状态转换函数：");       DisplayUtils.displayF(nfas[i]);
+            System.out.print("NFA唯一初态：");          DisplayUtils.displayS(nfas[i]);
+            System.out.print("NFA终态集：");            DisplayUtils.displayZ(nfas[i]);
+            System.out.println();
             dfas[i] = new NFA2DFA().definite(nfas[i]);
+            System.out.println("NFA转换为DFA：");
+            System.out.print("DFA状态集：");            DisplayUtils.displayK(dfas[i]);
+            System.out.print("DFA字母表：");            DisplayUtils.displayLetters(dfas[i]);
+            System.out.print("DFA状态转换函数：");       DisplayUtils.displayF(dfas[i]);
+            System.out.print("DFA唯一初态：");          DisplayUtils.displayS(dfas[i]);
+            System.out.print("DFA终态集：");            DisplayUtils.displayZ(dfas[i]);
+            System.out.println();
             dfas[i].transF();
             minDFA mDFA = new minDFA();
             //设置字母对应的索引
