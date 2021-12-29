@@ -123,10 +123,11 @@ public class controller {
             str += line;
             str+=" ";
         }
-        System.out.println(str);
+//        System.out.println(str);
         String[] code = str.split(" ");
 
         for (int i = 0; i < n; i++) {
+            System.out.println("起始符"+token_ids[i]+"对应的正规文法的转换：");
             RegexExpression re = new RegexExpression(res[i]);
             List<String> t = re.getRe();
             nfas[i] = new RE2NFA().get(re.getRe());
@@ -152,9 +153,9 @@ public class controller {
                 i--;
             }
         }
-        for (int i = 0; i < c.size(); i++) {
-            System.out.println(c.get(i));
-        }
+//        for (int i = 0; i < c.size(); i++) {
+//            System.out.println(c.get(i));
+//        }
 //        for(int i=0;i<c.size();i++)
 //        {
 //            System.out.println(c.get(i));

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class generateCode {
     public static void main(String[] args) throws IOException {
-        String token_id="V";String code="dl";
+        String token_id="V";String code="_d";
         String[] type2=new String[2];
         type2[0]="(";
         type2[1]=")";
@@ -28,6 +28,7 @@ public class generateCode {
         System.out.println(re.getRe());
 
         NFA nfa = new RE2NFA().get(re.getRe());
+        System.out.println(nfa.getLetters());
         DFA dfa = new NFA2DFA().definite(nfa);
         dfa.transF();
         minDFA mDFA = new minDFA();
@@ -35,6 +36,7 @@ public class generateCode {
         mDFA.setup(dfa.getLetters());
         //最小化DFA
         DFA nDFA=mDFA.minDFA(dfa);
+        System.out.println(nDFA.getLetters());
         generateDiagram g=new generateDiagram();
         System.out.println("化简后的DFA的状态转移图矩阵：");
         g.generateDiagram(nDFA);
