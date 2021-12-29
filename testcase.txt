@@ -4,6 +4,13 @@ D->,|;|+|-|*|/|:=|=|<>|>|>=|<|<=|(|)
 N->d*
 #
 
+K->WHILE|CONT
+#
+
+K->WHILE
+K->CONT
+#
+
 VAR a1=2;VAR a2=3; IF(a1=2) VAR a3=1;
 
 VAR a=10; VAR b=20; IF(a<=b) a=a+b; THEN VAR c=1;
@@ -25,13 +32,16 @@ DO BEGIN
 IF(a=1) b:=3
 ELSE b:=4
 GOTO a
+#
 
 VAR a1=2;
 VAR a2=3;
 IF(a1=2)
    VAR a3=1;
+#
 
 IF(A=B)
 DO B=B/A;
 ELSE
 CONST 5C=B;
+#

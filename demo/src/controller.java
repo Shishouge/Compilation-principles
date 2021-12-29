@@ -30,12 +30,9 @@ public class controller {
                 }
             }
             //System.out.println("code"+i+":"+isContainPunc);
-            if(isContainPunc)
-            {
-                for(int m=0;m<code[i].length();m++)
-                {
-                    if((code[i].charAt(m)>='a'&&code[i].charAt(m)<='z')||(code[i].charAt(m)>='A'&&code[i].charAt(m)<='Z')||(code[i].charAt(m)>='0'&&code[i].charAt(m)<='9')||code[i].charAt(m)=='_')
-                    {
+            if (isContainPunc) {
+                for (int m = 0; m < code[i].length(); m++) {
+                    if ((code[i].charAt(m) >= 'a' && code[i].charAt(m) <= 'z') || (code[i].charAt(m) >= 'A' && code[i].charAt(m) <= 'Z') || (code[i].charAt(m) >= '0' && code[i].charAt(m) <= '9') || code[i].charAt(m) == '_') {
 //=======
 //            System.out.println("code" + i + ":" + isContainPunc);
 //            if (isContainPunc) {
@@ -87,27 +84,28 @@ public class controller {
 //        String[] token_ids=new String[n];
 
         impelementRules session = new impelementRules();
-        session.Init();
-        session.mix1();
-        int n = session.resNum;
-        String[] Key = (String[]) session.Key.toArray(new String[0]); //关键字
-        String[] Boundary = (String[]) session.Boundary.toArray(new String[0]); //算符
-        String[] res = (String[]) session.res.toArray(new String[0]); //正规式
+        boolean isValid = session.Init();
+        if (isValid) {
+            session.mix1();
+            int n = session.resNum;
+            String[] Key = (String[]) session.Key.toArray(new String[0]); //关键字
+            String[] Boundary = (String[]) session.Boundary.toArray(new String[0]); //算符
+            String[] res = (String[]) session.res.toArray(new String[0]); //正规式
 //        System.out.println(res[0]);
-        String[] token_ids = (String[]) session.tokenids.toArray(new String[0]); //正规式token
-        for (int i = 0; i < token_ids.length; i++) {
-            System.out.print(token_ids[i]);
-            System.out.print(':');
-            System.out.println(res[i]);
-        }
+            String[] token_ids = (String[]) session.tokenids.toArray(new String[0]); //正规式token
+            for (int i = 0; i < token_ids.length; i++) {
+                System.out.print(token_ids[i]);
+                System.out.print(':');
+                System.out.println(res[i]);
+            }
 
-        //正规式对应的nfa,dfa,化简后的dfa
-        NFA[] nfas = new NFA[n];
-        DFA[] dfas = new DFA[n];
-        DFA[] ndfas = new DFA[n];
+            //正规式对应的nfa,dfa,化简后的dfa
+            NFA[] nfas = new NFA[n];
+            DFA[] dfas = new DFA[n];
+            DFA[] ndfas = new DFA[n];
 
 //        System.out.println("请输入文法：");//这里没有做输入
-        System.out.println("请输入要识别的代码");
+            System.out.println("请输入要识别的代码");
 
 //<<<<<<< HEAD
 //        for(int i=0;i<n;i++)
@@ -115,64 +113,64 @@ public class controller {
 //            int it=i+1;
 //            System.out.println("第"+it+"个：");
 //=======
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = "";
-        String str = "";
-        while (!(line = br.readLine().trim()).equals("#")) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String line = "";
+            String str = "";
+            while (!(line = br.readLine().trim()).equals("#")) {
 //            String in = br.readLine().trim();
-            str += line;
-            str+=" ";
-        }
-        System.out.println(str);
-        String[] code = str.split(" ");
-
-        for (int i = 0; i < n; i++) {
-            RegexExpression re = new RegexExpression(res[i]);
-            List<String> t = re.getRe();
-            nfas[i] = new RE2NFA().get(re.getRe());
-            dfas[i] = new NFA2DFA().definite(nfas[i]);
-            dfas[i].transF();
-            minDFA mDFA = new minDFA();
-            //设置字母对应的索引
-            mDFA.setup(dfas[i].getLetters());
-            //最小化DFA
-            ndfas[i] = mDFA.minDFA(dfas[i]);
-            generateDiagram g = new generateDiagram();
-            System.out.println("化简后的DFA的状态转移图矩阵：");
-            g.generateDiagram(ndfas[i]);
-            System.out.println();
-        }
-        generateCode t = new generateCode();
-        controller con = new controller();
-        //分割字符
-        List<String> c=con.divide(code,Boundary);
-        for(int i=0;i<c.size();i++) {
-            if (c.get(i).length() == 0) {
-                c.remove(i);
-                i--;
+                str += line;
+                str += " ";
             }
-        }
-        for (int i = 0; i < c.size(); i++) {
-            System.out.println(c.get(i));
-        }
+            System.out.println(str);
+            String[] code = str.split(" ");
+
+            for (int i = 0; i < n; i++) {
+                RegexExpression re = new RegexExpression(res[i]);
+                List<String> t = re.getRe();
+                nfas[i] = new RE2NFA().get(re.getRe());
+                dfas[i] = new NFA2DFA().definite(nfas[i]);
+                dfas[i].transF();
+                minDFA mDFA = new minDFA();
+                //设置字母对应的索引
+                mDFA.setup(dfas[i].getLetters());
+                //最小化DFA
+                ndfas[i] = mDFA.minDFA(dfas[i]);
+                generateDiagram g = new generateDiagram();
+                System.out.println("化简后的DFA的状态转移图矩阵：");
+                g.generateDiagram(ndfas[i]);
+                System.out.println();
+            }
+            generateCode t = new generateCode();
+            controller con = new controller();
+            //分割字符
+            List<String> c = con.divide(code, Boundary);
+            for (int i = 0; i < c.size(); i++) {
+                if (c.get(i).length() == 0) {
+                    c.remove(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < c.size(); i++) {
+                System.out.println(c.get(i));
+            }
 //        for(int i=0;i<c.size();i++)
 //        {
 //            System.out.println(c.get(i));
 //        }
-        //输出
-        for (int i = 0; i < c.size(); i++) {
-            for (int j = 0; j < n; j++) {
-                String info = t.gCode(token_ids[j], c.get(i), Key, Boundary, ndfas[j]);
-                if (info == "error" && j != n - 1) {
-                    continue;
-                } else if (info == "error" && j == n - 1) {
-                    System.out.println(info);
-                } else {
-                    System.out.println(info);
-                    break;
+            //输出
+            for (int i = 0; i < c.size(); i++) {
+                for (int j = 0; j < n; j++) {
+                    String info = t.gCode(token_ids[j], c.get(i), Key, Boundary, ndfas[j]);
+                    if (info == "error" && j != n - 1) {
+                        continue;
+                    } else if (info == "error" && j == n - 1) {
+                        System.out.println(info);
+                    } else {
+                        System.out.println(info);
+                        break;
+                    }
                 }
             }
         }
-
     }
 }

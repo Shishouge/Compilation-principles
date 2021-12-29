@@ -21,9 +21,9 @@ public class impelementRules extends Rule {
     String[] s1 = {"+", "-", "*", "/", "=", ">", "<", "(", ")", ";", ","};
     String[] s2 = {":=", "<>", ">=", "<="};
     String[] ss = {"program", "begin", "end", "const"
-            , "var", "while", "do", "if", "then","else","goto"};
+            , "var", "while", "do", "if", "then", "else", "goto"};
     String[] sss = {"PROGRAM", "BEGIN", "END", "CONST",
-            "VAR", "WHILE", "DO", "IF", "THEN","ELSE","GOTO"};
+            "VAR", "WHILE", "DO", "IF", "THEN", "ELSE", "GOTO"};
     List<Rule> rules = new ArrayList<>();
     //将关键字转换为小写形式
     Map<String, String> mpToLow = new HashMap<>();
@@ -47,7 +47,7 @@ public class impelementRules extends Rule {
 //        mpToLow.put("THEN", "then");
 //    }
 
-    public void Init() throws IOException {
+    public boolean Init() throws IOException {
 //        System.out.println("Init");
 //        initMap();//完成Map的初始化
         System.out.println("输入正规文法：");
@@ -64,15 +64,41 @@ public class impelementRules extends Rule {
         }
         for (Rule rule : rules) {
             rule.left = rule.str.charAt(0);
-
+            int keynum = 0;
             rule.right = rule.str.substring(3);
 
             for (int index = 1; index <= 11; ++index) {
                 if (rule.right.contains(sss[index - 1])) {
                     rule.right = rule.right.replace(sss[index - 1], ss[index - 1]);
+                    keynum++;
+                }
+            }
+            if (keynum > 0) {
+                for (int si = 0; si < rule.right.length(); si++) {
+                    if (rule.right.charAt(si) >= 'A' && rule.right.charAt(si) <= 'Z') {
+                        System.out.println("Error:出现了不在关键词列表里的关键词");
+                        return false;
+                    }
                 }
             }
         }
+        for (Rule rule : rules) {
+            for (int si = 0; si < rule.right.length(); si++) {
+                if (rule.right.charAt(si) >= 'A' && rule.right.charAt(si) <= 'Z') {
+                    char problem = rule.right.charAt(si);
+                    boolean isproblem = true;
+                    for (Rule arule : rules) {
+                        if (arule.left == problem)
+                            isproblem = false;
+                    }
+                    if (isproblem = true) {
+                        System.out.println("Error:出现了未定义的非终结符");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @Override
